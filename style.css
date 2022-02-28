@@ -1,0 +1,19 @@
+/* CSS Document */
+
+label {
+    font-weight: 500;
+    margin-top: 10px;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+}
+
+input {
+    letter-spacing: 1.5px;
+}
+.btn{
+    pointer-events: none;
+}
+
+.submit-active {
+    pointer-events: auto;
+}

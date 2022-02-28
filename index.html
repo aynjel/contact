@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Get in Touch</title>
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+		integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+	</script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+		integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous">
+	</script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+
+<body class="bg-dark text-white">
+	<div class="container" style="max-width: 700px; margin-top: 50px;">
+		<h1 class="display-6 text-center mb-3">GET IN TOUCH</h1>
+		<form method="post" class="form-control px-3 bg-secondary text-white" onsubmit="return false">
+			<label for="name">Name *</label>
+			<input type="text" name="name" id="name" class="form-control" placeholder="name">
+			<label for="phone">Mobile Number *</label>
+			<input type="number" name="phone" id="phone" class="form-control" placeholder="mobile number">
+			<label for="email">Email *</label>
+			<input type="email" name="email" id="email" class="form-control" placeholder="email">
+			<label for="message">Message *</label>
+			<textarea name="message" id="message" class="form-control" placeholder="your message here..."></textarea>
+			<button type="submit" class="form-control btn btn-primary my-2" id="btn-submit-form">Submit</button>
+		</form>
+	</div>
+	<script src="https://smtpjs.com/v3/smtp.js"></script>
+	<script>
+		var submitBtn = document.querySelector("#btn-submit-form");
+		var inputEmail = document.querySelector("#email");
+		var inputMobileNum = document.querySelector("#phone");
+		var clientName = document.querySelector("#name");
+		var inputMsg = document.querySelector("#message");
+
+		clientName.onkeyup, inputEmail.onkeyup, inputMobileNum.onkeyup, inputMsg.onkeyup = function () {
+			var data = clientName.value;
+			if (data.trim() != 0) {
+				submitBtn.classList.add("submit-active");
+				submitBtn.disable = true;
+				
+			} else {
+				submitBtn.classList.remove("submit-active");
+				submitBtn.style.backgroundColor = "gray";
+			}
+		}
+
+		submitBtn.addEventListener("click", function () {
+			Email.send({
+				Host: "smtp.mailtrap.io",
+				Username: "a9e4499b1cea8d",
+				Password: "44ff108d56788a",
+				To: 'ortegacanillo76@gmail.com',
+				From: inputEmail.value,
+				Subject: "New Message " + clientName.value.toUpperCase(),
+				Body: "Client Name: " + clientName.value.toUpperCase() + "<br>" +
+					"Mobile Number: " + inputMobileNum.value + "<br>" +
+					"Message: " + inputMsg.value
+			}).then(message => swal({
+				title: "Sent Successfully",
+				icon: "success"
+			}))
+
+			inputEmail.value = "";
+			inputMobileNum.value = "";
+			clientName.value = "";
+			inputMsg.value = "";
+		});
+	</script>
+</body>
+
+</html>
